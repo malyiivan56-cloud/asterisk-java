@@ -47,66 +47,58 @@ public class RtcpSentEvent extends AbstractRtcpEvent {
     private String language;
     private String report0SequenceNumberCycles;
     private String ssrc;
-    private String linkedId;
+    private String linkedid; // учитываем регистр из списка — lower case
     private String report0lsr;
-    private String report0Sourcessrc;
+    private String report0sourcessrc;
     private Double report0dlsr;
     private String uniqueid;
-    private Integer reportCount;
-    private Integer report0CumulativeLost;
-    private Integer report0FractionLost;
-    private Integer report0iaJitter;
-    private Integer report0HighestSequence;
+    private Integer reportcount;
+    private Integer report0cumulativelost;
+    private Integer report0fractionlost;
+    private Integer report0iajitter;
+    private Integer report0highestsequence;
     private String accountCode;
     private Double mes;
+
+    private String calleridname;
+    private String calleridnum;
+    private String connectedlinenum;
+    private String connectedlinename;
+    private Integer priority;
+    private String exten;
+
+    private String context;
+    private String channelstatedesc;
+    private Integer channelstate;
 
     public RtcpSentEvent(Object source) {
         super(source);
     }
 
-    /**
-     * Returns the IP address the RTCP message has been received from.
-     *
-     * @return the IP address the RTCP message has been received from.
-     */
+    // --- Существующие геттеры и сеттеры ---
+
     public InetAddress getFromAddress() {
         return fromAddress;
     }
 
-    /**
-     * Returns the port of the RTCP message has been received from.
-     *
-     * @return the port of the RTCP message has been received from.
-     */
     public Integer getFromPort() {
         return fromPort;
     }
 
     public void setFrom(String from) {
-        // Format is "%s:%d"
         this.fromAddress = stringToAddress(from);
         this.fromPort = stringToPort(from);
     }
 
-    /**
-     * Indicates the format of the payload, typical values are 200 for sender reports and
-     * 201 for receiver reports.
-     *
-     * @return the format of the payload.
-     * @see #RtcpReceivedEvent.PT_SENDER_REPORT
-     * @see #RtcpReceivedEvent.PT_RECEIVER_REPORT
-     */
     public Long getPt() {
         return pt;
     }
 
     public void setPt(String ptString) {
-        // Format is "PT: %d(%s)"
         if (ptString == null || ptString.length() == 0) {
             this.pt = null;
             return;
         }
-
         if (ptString.indexOf('(') > 0) {
             this.pt = Long.parseLong(ptString.substring(0, ptString.indexOf('(')));
         } else {
@@ -114,36 +106,19 @@ public class RtcpSentEvent extends AbstractRtcpEvent {
         }
     }
 
-
-    /**
-     * Returns the IP address the RTCP message has been sent to.
-     *
-     * @return the IP address the RTCP message has been sent to.
-     */
     public InetAddress getToAddress() {
         return toAddress;
     }
 
-    /**
-     * Returns the port the RTCP message has been sent to.
-     *
-     * @return the port the RTCP message has been sent to.
-     */
     public Integer getToPort() {
         return toPort;
     }
 
     public void setTo(String to) {
-        // Format is "%s:%d"
         this.toAddress = stringToAddress(to);
         this.toPort = stringToPort(to);
     }
 
-    /**
-     * Returns our synchronization source identifier that uniquely identifies the source of a stream.
-     *
-     * @return our synchronization source identifier.
-     */
     public Long getOurSsrc() {
         return ourSsrc;
     }
@@ -168,11 +143,6 @@ public class RtcpSentEvent extends AbstractRtcpEvent {
         this.sentRtp = sentRtp;
     }
 
-    /**
-     * Returns the number of packets sent.
-     *
-     * @return the number of packets sent.
-     */
     public Long getSentPackets() {
         return sentPackets;
     }
@@ -181,11 +151,6 @@ public class RtcpSentEvent extends AbstractRtcpEvent {
         this.sentPackets = sentPackets;
     }
 
-    /**
-     * Returns the number of octets (bytes) sent.
-     *
-     * @return the number of octets (bytes) sent.
-     */
     public Long getSentOctets() {
         return sentOctets;
     }
@@ -242,12 +207,12 @@ public class RtcpSentEvent extends AbstractRtcpEvent {
         this.ssrc = ssrc;
     }
 
-    public String getLinkedId() {
-        return linkedId;
+    public String getLinkedid() {
+        return linkedid;
     }
 
-    public void setLinkedId(String linkedId) {
-        this.linkedId = linkedId;
+    public void setLinkedid(String linkedid) {
+        this.linkedid = linkedid;
     }
 
     public String getReport0lsr() {
@@ -258,12 +223,12 @@ public class RtcpSentEvent extends AbstractRtcpEvent {
         this.report0lsr = report0lsr;
     }
 
-    public String getReport0Sourcessrc() {
-        return report0Sourcessrc;
+    public String getReport0sourcessrc() {
+        return report0sourcessrc;
     }
 
-    public void setReport0Sourcessrc(String report0Sourcessrc) {
-        this.report0Sourcessrc = report0Sourcessrc;
+    public void setReport0sourcessrc(String report0sourcessrc) {
+        this.report0sourcessrc = report0sourcessrc;
     }
 
     public Double getReport0dlsr() {
@@ -282,44 +247,44 @@ public class RtcpSentEvent extends AbstractRtcpEvent {
         this.uniqueid = uniqueid;
     }
 
-    public Integer getReportCount() {
-        return reportCount;
+    public Integer getReportcount() {
+        return reportcount;
     }
 
-    public void setReportCount(Integer reportCount) {
-        this.reportCount = reportCount;
+    public void setReportcount(Integer reportcount) {
+        this.reportcount = reportcount;
     }
 
-    public Integer getReport0CumulativeLost() {
-        return report0CumulativeLost;
+    public Integer getReport0cumulativelost() {
+        return report0cumulativelost;
     }
 
-    public void setReport0CumulativeLost(Integer report0CumulativeLost) {
-        this.report0CumulativeLost = report0CumulativeLost;
+    public void setReport0cumulativelost(Integer report0cumulativelost) {
+        this.report0cumulativelost = report0cumulativelost;
     }
 
-    public Integer getReport0FractionLost() {
-        return report0FractionLost;
+    public Integer getReport0fractionlost() {
+        return report0fractionlost;
     }
 
-    public void setReport0FractionLost(Integer report0FractionLost) {
-        this.report0FractionLost = report0FractionLost;
+    public void setReport0fractionlost(Integer report0fractionlost) {
+        this.report0fractionlost = report0fractionlost;
     }
 
-    public Integer getReport0iaJitter() {
-        return report0iaJitter;
+    public Integer getReport0iajitter() {
+        return report0iajitter;
     }
 
-    public void setReport0iaJitter(Integer report0iaJitter) {
-        this.report0iaJitter = report0iaJitter;
+    public void setReport0iajitter(Integer report0iajitter) {
+        this.report0iajitter = report0iajitter;
     }
 
-    public Integer getReport0HighestSequence() {
-        return report0HighestSequence;
+    public Integer getReport0highestsequence() {
+        return report0highestsequence;
     }
 
-    public void setReport0HighestSequence(Integer report0HighestSequence) {
-        this.report0HighestSequence = report0HighestSequence;
+    public void setReport0highestsequence(Integer report0highestsequence) {
+        this.report0highestsequence = report0highestsequence;
     }
 
     public String getAccountCode() {
@@ -336,5 +301,77 @@ public class RtcpSentEvent extends AbstractRtcpEvent {
 
     public void setMes(Double mes) {
         this.mes = mes;
+    }
+
+    public String getCalleridname() {
+        return calleridname;
+    }
+
+    public void setCalleridname(String calleridname) {
+        this.calleridname = calleridname;
+    }
+
+    public String getCalleridnum() {
+        return calleridnum;
+    }
+
+    public void setCalleridnum(String calleridnum) {
+        this.calleridnum = calleridnum;
+    }
+
+    public String getConnectedlinenum() {
+        return connectedlinenum;
+    }
+
+    public void setConnectedlinenum(String connectedlinenum) {
+        this.connectedlinenum = connectedlinenum;
+    }
+
+    public String getConnectedlinename() {
+        return connectedlinename;
+    }
+
+    public void setConnectedlinename(String connectedlinename) {
+        this.connectedlinename = connectedlinename;
+    }
+
+    public Integer getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Integer priority) {
+        this.priority = priority;
+    }
+
+    public String getExten() {
+        return exten;
+    }
+
+    public void setExten(String exten) {
+        this.exten = exten;
+    }
+
+    public String getContext() {
+        return context;
+    }
+
+    public void setContext(String context) {
+        this.context = context;
+    }
+
+    public String getChannelstatedesc() {
+        return channelstatedesc;
+    }
+
+    public void setChannelstatedesc(String channelstatedesc) {
+        this.channelstatedesc = channelstatedesc;
+    }
+
+    public Integer getChannelstate() {
+        return channelstate;
+    }
+
+    public void setChannelstate(Integer channelstate) {
+        this.channelstate = channelstate;
     }
 }
